@@ -1,0 +1,115 @@
+variables:
+  ADMIN_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
+  STAGING_ADMIN_IMAGE: ${CI_REGISTRY}/${CI_PROJECT_PATH}:staging
+
+stages:
+  - build
+  - release
+  - staging
+  - deploy
+
+cache:
+  key: "$CI_BUILD_REF_NAME node:8-alpine"
+  paths:
+    - node_modules/
+
+build_dist_staging:
+  stage: build
+  image: node:8-alpine
+  only:
+    - "develop"
+  before_script:
+    - apk add --update bash
+    - apk add --update git && rm -rf /tmp/* /var/cache/apk/*
+    - npm install
+  script:
+    - ./node_modules/@angular/cli/bin/ng build --environment=staging
+  artifacts:
+    paths:
+      - dist/
+
+build_dist_deploy:
+  stage: build
+  image: node:8-alpine
+  only:
+    - "master"
+  before_script:
+    - apk add --update bash
+    - apk add --update git && rm -rf /tmp/* /var/cache/apk/*
+    - npm install
+  script:
+    - ./node_modules/@angular/cli/bin/ng build --environment=prod
+  artifacts:
+    paths:
+      - dist/
+
+release_admin:
+  stage: release
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_DRIVER: "overlay"
+  only:
+    - "master"
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  script:
+    - docker build -t $ADMIN_IMAGE --pull .
+    - docker push $ADMIN_IMAGE
+  after_script:
+    - docker logout $CI_REGISTRY
+
+release_staging_admin:
+  stage: release
+  image: docker:latest
+  services:
+    - docker:dind
+  variables:
+    DOCKER_DRIVER: "overlay"
+  only:
+    - "develop"
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $CI_REGISTRY
+  script:
+    - docker build -t $STAGING_ADMIN_IMAGE --pull .
+    - docker push $STAGING_ADMIN_IMAGE
+  after_script:
+    - docker logout $CI_REGISTRY
+
+staging_admin:
+  stage: staging
+  image: gitlab/dind:latest
+  only:
+    - "develop"
+  environment: production
+  services:
+    - docker:dind
+  before_script:
+    - mkdir -p ~/.ssh
+    - echo "$DEPLOY_SERVER_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - eval "$(ssh-agent -s)"
+    - ssh-add ~/.ssh/id_rsa
+    - ssh-keyscan -H $DEPLOYMENT_SERVER_IP >> ~/.ssh/known_hosts
+  script:
+    - ssh zuhrul@$DEPLOYMENT_SERVER_IP "docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}; docker pull $STAGING_ADMIN_IMAGE; docker-compose -f docker-compose.prod.yml up --build -d stage_client"
+
+deploy_admin:
+  stage: deploy
+  image: gitlab/dind:latest
+  only:
+    - "master"
+  environment: production
+  services:
+    - docker:dind
+  before_script:
+    - mkdir -p ~/.ssh
+    - echo "$DEPLOY_SERVER_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - eval "$(ssh-agent -s)"
+    - ssh-add ~/.ssh/id_rsa
+    - ssh-keyscan -H $DEPLOYMENT_SERVER_IP >> ~/.ssh/known_hosts
+  script:
+    - ssh zuhrul@$DEPLOYMENT_SERVER_IP "docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}; docker pull $ADMIN_IMAGE; docker-compose -f docker-compose.prod.yml up --build -d client"
+  # when: manual

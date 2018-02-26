@@ -1,0 +1,27 @@
+<div class="w">
+  <div class="row">
+    <div class="col-md-6">
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Search for Location" #search>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field class="full-width">
+        <input matInput [placeholder]="'general.latitude' | translate" [(ngModel)]="lat">
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-3">
+      <mat-form-field class="full-width">
+        <input matInput [placeholder]="'general.longitude' | translate" [(ngModel)]="lng">
+      </mat-form-field>
+    </div>
+  </div>
+  <img [src]="marker" alt="" class="center-marker">
+  <agm-map [zoom]="zoom" [latitude]="lat" [longitude]="lng" (centerChange)="onCenterChange($event)" (mapReady)="onMapReady($event)">
+    <!-- <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker> -->
+  </agm-map>
+  <button class="ok" mat-fab mat-raised-button color="primary" (click)="ok()">
+    <mat-icon>check</mat-icon>
+  </button>
+</div>

@@ -1,0 +1,119 @@
+<mat-toolbar>
+  <span>
+    <h4> {{ 'menu.member'|translate|uppercase }} </h4>
+  </span>
+</mat-toolbar>
+<div class="form">
+  <form novalidate [formGroup]="aForm" class="form-login-container">
+    <div class="row">
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [placeholder]="'general.name' |translate|titlecase" formControlName="name">
+          <mat-error *ngIf="aForm.get('name').hasError('required') && ( aForm.get('name').touched || aForm.get('name').dirty )">
+            {{ 'form.message.fill_it' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [placeholder]="'general.nik' |translate|uppercase" formControlName="nik">
+          <mat-error *ngIf="aForm.get('nik').hasError('required') && ( aForm.get('nik').touched || aForm.get('nik').dirty )">
+            {{ 'form.message.fill_it' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [placeholder]="'general.email' | translate|titlecase" formControlName="email">
+          <mat-error *ngIf="aForm.get('email').hasError('email') && !aForm.get('email').hasError('required') && ( aForm.get('email').touched || aForm.get('email').dirty )">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="aForm.get('email').hasError('required') && ( aForm.get('email').touched || aForm.get('email').dirty )">
+            {{ 'form.message.fill_it' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <mat-select [placeholder]="'general.gender'|translate|titlecase" formControlName="gender">
+            <mat-option *ngFor="let gender of genderOptions" [value]="gender.value">
+              {{ gender.label }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="aForm.get('gender').hasError('required') && ( aForm.get('gender').touched || aForm.get('gender').dirty )">
+            {{ 'form.message.fill_it'|translate|titlecase }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [matDatepicker]="birthDatePicker" [placeholder]="'general.birth_date'|translate|titlecase" formControlName="birth_date">
+          <mat-datepicker-toggle matSuffix [for]="birthDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #birthDatePicker></mat-datepicker>
+          <mat-error *ngIf="aForm.get('birth_date').hasError('required') && ( aForm.get('birth_date').touched || aForm.get('birth_date').dirty )">
+            {{ 'form.message.fill_it' | translate|titlecase }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [placeholder]="'general.address' | translate|titlecase" formControlName="address">
+          <mat-error *ngIf="aForm.get('address').hasError('required') && ( aForm.get('address').touched || aForm.get('address').dirty )">
+            {{ 'form.message.fill_it' | translate|titlecase }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [placeholder]="'general.city'|translate|titlecase" formControlName="city">
+          <mat-error *ngIf="aForm.get('city').hasError('required') && ( aForm.get('city').touched || aForm.get('city').dirty )">
+            {{ 'form.message.fill_it' | translate|titlecase }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput type="number" [placeholder]="'general.last_salary'|translate|titlecase" formControlName="last_salary">
+          <mat-error *ngIf="aForm.get('last_salary').hasError('required') && ( aForm.get('last_salary').touched || aForm.get('last_salary').dirty )">
+            {{ 'form.message.fill_it' | translate|titlecase }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [matDatepicker]="salaryDatePicker" [placeholder]="'general.salary_date'|translate|titlecase" formControlName="salary_date">
+          <mat-datepicker-toggle matSuffix [for]="salaryDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #salaryDatePicker></mat-datepicker>
+          <mat-error *ngIf="aForm.get('salary_date').hasError('required') && ( aForm.get('salary_date').touched || aForm.get('salary_date').dirty )">
+            {{ 'form.message.fill_it' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [matDatepicker]="outDatePicker" [placeholder]="'general.out_date'|translate|titlecase" formControlName="out_date">
+          <mat-datepicker-toggle matSuffix [for]="outDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #outDatePicker></mat-datepicker>
+          <mat-error *ngIf="aForm.get('out_date').hasError('required') && ( aForm.get('out_date').touched || aForm.get('out_date').dirty )">
+            {{ 'form.message.fill_it' | translate|titlecase }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+  </form>
+  <button mat-button color="warn" (click)="delete()" *ngIf="data">{{ 'action.delete' | translate }}</button>
+  <button class="pull-right" mat-raised-button color="primary" (click)="save()" [disabled]="!aForm.valid">{{ 'action.save' | translate }}</button>
+
+</div>

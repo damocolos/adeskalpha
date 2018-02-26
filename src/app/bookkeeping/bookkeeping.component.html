@@ -1,0 +1,167 @@
+<div class="container body-container">
+  <mat-card class="wrapper-normal">
+    <h4 class="subtitle">{{ 'menu.bookkeeping'|translate|uppercase }} {{ 'general.data'|translate|uppercase }}</h4>
+    <div class="wrapper-top table-attr">
+      <div class="add">
+        <button mat-icon-button mat-mini-fab class="button-create" color="primary" matTooltip="create" matTooltipPosition="right">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <div class="search">
+        <mat-form-field class="full-width">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-table #table="matSort" [dataSource]="dataSource" *ngIf="dataSource.data.length > 0" matSort>
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="md"> {{ 'general.type'|translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="md">
+          <mat-chip-list>
+            <mat-chip color="primary" selected="true" *ngIf="element.type=='deposit'">{{ 'general.deposit'|translate }}</mat-chip>
+            <mat-chip color="warn" selected="true" *ngIf="element.type=='credit'">{{ 'general.credit'|translate }}</mat-chip>
+            <mat-chip color="accent" selected="true" *ngIf="element.type=='other'">{{ 'general.other'|translate }}</mat-chip>
+          </mat-chip-list>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.amount'|translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.amount|currency:'IDR' }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.date'|translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.date | date:'dd MMM yyyy' }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef class="xs">
+          <mat-icon>more_horiz</mat-icon>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="xs">
+          <!-- <button *ngIf="element.type != ''" mat-icon-button color="primary" [matTooltip]="'general.edit'|translate" matTooltipPosition="right"
+            (click)="runDialog(element._id, 'edit')">
+            <mat-icon>mode_edit</mat-icon>
+          </button> -->
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" *ngIf="dataSource.data.length > 0">
+    </mat-paginator>
+  </mat-card>
+
+  <mat-card class="wrapper-normal" >
+    <h4 class="subtitle">{{ 'menu.member'|translate|uppercase }} {{ 'general.data'|translate|uppercase }}</h4>
+    <div class="wrapper-top table-attr">
+      <div class="add">
+        <button mat-icon-button mat-mini-fab class="button-create" color="primary" [matTooltip]="'general.print'|translate" matTooltipPosition="right"
+          (click)="goPrint()">
+          <mat-icon>print</mat-icon>
+        </button>
+      </div>
+
+      <div class="search">
+        <mat-form-field class="full-width">
+          <input matInput (keyup)="applyFilterMember($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-table #tableMember="matSort" [dataSource]="dataSourceMember" *ngIf="dataSourceMember.data.length > 0" matSort>
+
+      <ng-container matColumnDef="nik">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.nik' |translate|uppercase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.nik}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.name' |translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="deposit">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.deposit' |translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.deposit |currency:'IDR'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="deposit_result">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.deposit_result' |translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.deposit_result |currency:'IDR'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="credit">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.credit' |translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.credit |currency:'IDR'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="credit_result">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.credit_result' |translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.credit_result |currency:'IDR'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="total_shu">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.total' |translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.total_shu |currency:'IDR'}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumnsMember"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumnsMember;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginatorMember [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" *ngIf="dataSourceMember.data.length > 0">
+    </mat-paginator>
+  </mat-card>
+
+  <mat-card class="wrapper-normal">
+    <h4 class="subtitle">{{ 'general.shu'|translate|uppercase }}</h4>
+    <div class="col-md-12 charts md">
+      <div class="charts-wrapper">
+        <ngx-charts-advanced-pie-chart [scheme]="shuCharts.scheme" [results]="shuCharts.results" [gradient]="shuCharts.gradient"
+          (select)="onSelect($event)">
+        </ngx-charts-advanced-pie-chart>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card>
+    <h4 class="subtitle">{{ 'general.statistics'|translate|uppercase }}</h4>
+    <mat-tab-group>
+      <mat-tab [label]="'general.monthly'|translate|titlecase" class="normalize tb">
+        <div class="col-md-12 charts md">
+          <div class="charts-wrapper">
+            <ngx-charts-line-chart [scheme]="monthlyCharts.scheme" [results]="monthlyCharts.results" [gradient]="monthlyCharts.gradient"
+              [xAxis]="monthlyCharts.showXAxis" [yAxis]="monthlyCharts.showYAxis" [legend]="monthlyCharts.showLegend" [showXAxisLabel]="monthlyCharts.showXAxisLabel"
+              [showYAxisLabel]="monthlyCharts.showYAxisLabel" [xAxisLabel]="monthlyCharts.xAxisLabel" [yAxisLabel]="monthlyCharts.yAxisLabel"
+              [autoScale]="monthlyCharts.autoScale" (select)="onSelect($event)">
+            </ngx-charts-line-chart>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab [label]="'general.deposit'|translate|titlecase">
+        <div class="col-md-12 charts md">
+          <div class="charts-wrapper">
+            <ngx-charts-line-chart [scheme]="depositCharts.scheme" [results]="depositCharts.results" [gradient]="depositCharts.gradient"
+              [xAxis]="depositCharts.showXAxis" [yAxis]="depositCharts.showYAxis" [legend]="depositCharts.showLegend" [showXAxisLabel]="depositCharts.showXAxisLabel"
+              [showYAxisLabel]="depositCharts.showYAxisLabel" [xAxisLabel]="depositCharts.xAxisLabel" [yAxisLabel]="depositCharts.yAxisLabel"
+              [autoScale]="depositCharts.autoScale" (select)="onSelect($event)">
+            </ngx-charts-line-chart>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab [label]="'general.credit'|translate|titlecase">
+        <div class="col-md-12 charts md">
+          <div class="charts-wrapper">
+            <ngx-charts-line-chart [scheme]="creditCharts.scheme" [results]="creditCharts.results" [gradient]="creditCharts.gradient"
+              [xAxis]="creditCharts.showXAxis" [yAxis]="creditCharts.showYAxis" [legend]="creditCharts.showLegend" [showXAxisLabel]="creditCharts.showXAxisLabel"
+              [showYAxisLabel]="creditCharts.showYAxisLabel" [xAxisLabel]="creditCharts.xAxisLabel" [yAxisLabel]="creditCharts.yAxisLabel"
+              [autoScale]="creditCharts.autoScale" (select)="onSelect($event)">
+            </ngx-charts-line-chart>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

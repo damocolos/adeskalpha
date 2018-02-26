@@ -1,0 +1,43 @@
+.body-container {
+  margin: 20px 0px;
+  .body-title {
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font-weight: 400; // float: left;
+    line-height: 42px;
+  }
+}
+
+.wrapper-normal {
+  margin: 20px 0px; // clear: both;
+  // display: flex;
+}
+
+.wrapper-top {
+  display: flex;
+}
+
+.button-create-wrapper {
+  flex: 0 0 8%;
+}
+
+.filter-wrapper {
+  flex: 0 0 92%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+// mat-cell:nth-child(1),
+// mat-header-cell:nth-child(1),
+// {
+//   flex: 0 0 5%;
+// }
+.action {
+//   mat-cell,
+//   mat-header-cell,
+//     {
+    flex: 0 0 5%;
+//   }
+}

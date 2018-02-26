@@ -1,0 +1,40 @@
+@import 'styles-variables';
+.fluid-container {
+  background-image: url(../../../assets/login_background.jpg);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  mat-card {
+    background: #ffffffe0;
+  }
+}
+
+.row {
+  height: 100%;
+  max-width: 100%;
+  margin: 0px !important;
+  h1 {
+    text-align: center;
+  }
+}
+
+.form-login-container {
+  mat-form-field {
+    margin-bottom: 10px;
+    mat-error {
+        color: red;
+    }
+  }
+  .full-width {
+    width: 100%;
+  }
+  button {
+    // background: #f7b90a;
+    width: 100%;
+    height: 50px;
+    // &[disabled] {
+    //     background-color: lightgrey;
+    // }
+  }
+}

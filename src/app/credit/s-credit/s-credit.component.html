@@ -1,0 +1,76 @@
+<mat-toolbar class="dialog-toolbar">
+  <span>
+    <h4> {{ 'menu.credit'|translate|uppercase }} </h4>
+  </span>
+</mat-toolbar>
+<div class="form">
+  <form novalidate [formGroup]="aForm" class="form-login-container">
+    <div class="row">
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <mat-select [placeholder]="'general.type'|translate|titlecase" formControlName="type">
+            <mat-option *ngFor="let type of typeOptions" [value]="type.value">
+              {{ type.label }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="aForm.get('type').hasError('required') && ( aForm.get('type').touched || aForm.get('type').dirty )">
+            {{ 'form.message.fill_it' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput (click)="pickMember()" [placeholder]="'general.nik'|translate|titlecase" formControlName="nik">
+          <mat-error *ngIf="aForm.get('nik').hasError('required') && ( aForm.get('nik').touched || aForm.get('nik').dirty )">
+            {{ 'form.message.fill_it' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput type="number" [placeholder]="'general.amount'|translate|titlecase" formControlName="amount">
+          <span matPrefix>{{ 'general.currency_symbol'|translate }} &nbsp;</span>
+          <mat-error *ngIf="aForm.get('amount').hasError('required') && ( aForm.get('amount').touched || aForm.get('amount').dirty )">
+            {{ 'form.message.fill_it' | translate|titlecase }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput [placeholder]="'general.description'|translate|titlecase" formControlName="description">
+          <mat-error *ngIf="aForm.get('description').hasError('required') && ( aForm.get('description').touched || aForm.get('description').dirty )">
+            {{ 'form.message.fill_it' | translate|titlecase }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput type="number" [placeholder]="'general.interest'|translate|titlecase" formControlName="interest">
+          <mat-error *ngIf="aForm.get('interest').hasError('required') && ( aForm.get('interest').touched || aForm.get('interest').dirty )">
+            {{ 'form.message.fill_it' | translate|titlecase }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-12">
+        <mat-form-field class="full-width">
+          <input matInput type="number" [placeholder]="'general.time_periods'|translate|titlecase" formControlName="time_periods">
+          <span matSuffix>{{ 'general.month'|translate }}</span>
+          <mat-error *ngIf="aForm.get('time_periods').hasError('required') && ( aForm.get('time_periods').touched || aForm.get('time_periods').dirty )">
+            {{ 'form.message.fill_it' | translate|titlecase }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+  </form>
+  <button mat-button color="warn" (click)="delete()" *ngIf="data">{{ 'action.delete' | translate }}</button>
+  <button class="pull-right" mat-raised-button color="primary" (click)="save()" [disabled]="!aForm.valid">{{ 'action.save' | translate }}</button>
+
+</div>

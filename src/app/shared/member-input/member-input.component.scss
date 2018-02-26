@@ -1,0 +1,18 @@
+.member {
+  height: 510px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.26);
+  }
+}
+mat-list-item {
+    transition: all ease-in-out .2s;
+    &:hover {
+        background-color: rgba(220, 220, 220, 0.2);
+        box-shadow: 0.5px 0.5px 0.5px 0.5px #cecece52;
+    }
+}

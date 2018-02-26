@@ -1,0 +1,109 @@
+<div class="container body-container">
+  <mat-card class="wrapper-normal">
+    <h4 class="subtitle">{{ 'general.data'|translate|uppercase }}</h4>
+    <div class="wrapper-top table-attr">
+      <div class="add">
+        <button mat-icon-button mat-mini-fab class="button-create" color="primary" matTooltip="create" matTooltipPosition="right"
+          (click)="runDialog(null)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <div class="search">
+        <mat-form-field class="full-width">
+          <input matInput (keyup)="applyFilter($event.target.value)" [placeholder]="'general.search'|translate|titlecase">
+        </mat-form-field>
+      </div>
+
+      <div class="other">
+        <div class="row normalize">
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [matDatepicker]="fromDatePicker" [placeholder]="'general.from'|translate|titlecase" [(ngModel)]="option.from_date">
+              <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #fromDatePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="full-width">
+              <input matInput [matDatepicker]="toDatePicker" [placeholder]="'general.to'|translate|titlecase" [(ngModel)]="option.to_date">
+              <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #toDatePicker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1">
+            <button mat-icon-button (click)="dateFilter()">
+              <mat-icon>filter_list</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-table #table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0" matSort>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="md"></mat-header-cell>
+        <mat-cell *matCellDef="let element" class="md">
+          <mat-chip-list>
+            <mat-chip color="warn" selected="true" *ngIf="element.status=='progress'">{{ 'general.progress'|translate }}</mat-chip>
+            <mat-chip color="accent" selected="true" *ngIf="element.status=='done'">{{ 'general.done'|translate }}</mat-chip>
+          </mat-chip-list>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="sm"> {{ 'general.type'|translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="sm"> {{ element.type }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.amount'|translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.amount | currency:'IDR' }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="member">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'menu.member'|translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <span class="member" (click)="openMember(element.nik)"> {{ element.member }} </span>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="interest">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="sm"> {{ 'general.interest'|translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="sm"> {{ element.interest }}% </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="monthly">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.monthly'|translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ monthlyPay(element) |currency:'IDR' }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="paid">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.paid'|translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.paid | currency:'IDR'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.date'|translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.created_at | date }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef class="xs">
+          <mat-icon>more_horiz</mat-icon>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="xs">
+          <button *ngIf="element.type != ''" mat-icon-button color="primary" [matTooltip]="'general.edit'|translate" matTooltipPosition="right"
+            (click)="runDialog(element)">
+            <mat-icon>mode_edit</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" *ngIf="dataSource.data.length > 0">
+    </mat-paginator>
+  </mat-card>
+</div>

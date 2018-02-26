@@ -1,0 +1,79 @@
+<div class="container body-container">
+  <!-- <mat-card class="wrapper-normal" [ngClass]="animateOnRouteEnter">
+
+    <h4 class="subtitle">{{ 'general.data'|translate|uppercase }}</h4>
+
+    <div class="wrapper-top">
+        <mat-form-field class="full-width">
+          <input matInput (keyup)="applyFilter($event.target.value)" [placeholder]="'general.search' | translate | titlecase">
+        </mat-form-field>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0">
+
+      <ng-container matColumnDef="nik">
+        <mat-header-cell *matHeaderCellDef> {{ 'general.nik' |translate|uppercase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.nik}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> {{ 'general.name' |translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef> {{ 'general.email' |translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef> {{ 'general.date' |translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.created_at | date:'fullDate' }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef class="action">
+          <mat-icon>more_horiz</mat-icon>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="action">
+          <button *ngIf="element.name != ''" mat-icon-button color="primary" [matTooltip]="'general.edit' |translate|titlecase" matTooltipPosition="right"
+            (click)="runDialog(element)">
+            <mat-icon>mode_edit</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" *ngIf="dataSource.data.length > 0">
+    </mat-paginator>
+  </mat-card> -->
+  <div class="row">
+    <div class="col-md-7">
+      <mat-list class="member">
+        <mat-list-item class="select" *ngFor="let member of members">
+          <p matLine>{{ member?.nik }} - {{ member?.name }}</p>
+          <span spacer></span>
+          <button *ngIf="member?._id != selected?._id" mat-raised-button color="accent" (click)="onSelect(member)">select</button>
+          <mat-icon *ngIf="member?._id == selected?._id" color="primary">arrow_forward</mat-icon>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="col-md-5">
+      <div class="col-sticky">
+            <mat-form-field class="full-width">
+          <input matInput (keyup)="applyFilter($event.target.value)" [placeholder]="'general.search'|translate|titlecase" #search>
+        </mat-form-field>
+        <h3>{{ selected?.name }}</h3>
+        <p>{{ selected?.nik }}</p>
+        <p>{{ selected?.gender }}</p>
+        <p>{{ selected?.address }}, {{ selected?.city }}</p>
+        <p>{{ selected?.email }}</p>
+        <p>{{ selected?.birth_date |date }}</p>
+        <p>{{ selected?.last_salary | currency:'IDR' }}</p>
+        <button mat-raised-button color="primary" (click)="dialogRef.close(selected)"><mat-icon>check</mat-icon></button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="container body-container">
+  <div class="col-12">
+    <mat-card class="wrapper-normal" [ngClass]="animateOnRouteEnter">
+      <div class="wrapper-top">
+        <div class="button-create-wrapper">
+          <button mat-icon-button mat-mini-fab class="button-create" color="primary" matTooltip="create" matTooltipPosition="right"
+            (click)="runDialog(null, 'create')">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        
+        <div class="filter-wrapper">
+          <mat-form-field class="full-width">
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-table #table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0">
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.insurance.name}} </mat-cell>
+        </ng-container>
+
+        <!-- Phone Column -->
+        <ng-container matColumnDef="phone">
+          <mat-header-cell *matHeaderCellDef> Phone </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.phone}} </mat-cell>
+        </ng-container>
+
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.insurance.email}} </mat-cell>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef class="action">
+              <mat-icon>more_horiz</mat-icon>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="action">
+            <button *ngIf="element.insurance.name != ''" mat-icon-button color="primary" matTooltip="edit" matTooltipPosition="right" (click)="runDialog(element.id, 'edit')">
+              <mat-icon>mode_edit</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" *ngIf="dataSource.data.length > 0">
+      </mat-paginator>
+    </mat-card>
+  </div>
+</div>

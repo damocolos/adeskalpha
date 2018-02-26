@@ -1,0 +1,13 @@
+<mat-tab-group>
+  <mat-tab [label]="'general.profil'|translate|titlecase">
+    <div class="tab-body">
+      <h1>{{ member?.name }}</h1>
+      <p>{{ member?.nik }}</p>
+      <p>{{ member?.email }}</p>
+      <p>{{ member?.address }}, {{ member?.city }}</p>
+      <p>{{ member?.birth_date|date }}</p>
+      <p>{{ member?.last_salary | currency:'IDR'}}</p>
+    </div>
+  </mat-tab>
+  <mat-tab label="Tab 2">Content 2</mat-tab>
+</mat-tab-group>

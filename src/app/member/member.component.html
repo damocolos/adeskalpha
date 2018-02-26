@@ -1,0 +1,90 @@
+<div class="container body-container">
+  <mat-card class="wrapper-normal">
+
+    <h4 class="subtitle">{{ 'general.data'|translate|uppercase }}</h4>
+
+    <div class="wrapper-top">
+      <div class="button-create-wrapper">
+        <button mat-icon-button mat-mini-fab class="button-create" color="primary" matTooltip="create" matTooltipPosition="right"
+          (click)="runDialog()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <div class="filter-wrapper">
+        <mat-form-field class="full-width">
+          <input matInput (keyup)="applyFilter($event.target.value)" [placeholder]="'general.search' | translate | titlecase">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <mat-table #table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0">
+
+      <ng-container matColumnDef="nik">
+        <mat-header-cell *matHeaderCellDef> {{ 'general.nik' |translate|uppercase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.nik}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> {{ 'general.name' |translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef> {{ 'general.email' |translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <mat-header-cell *matHeaderCellDef> {{ 'general.date' |translate|titlecase }} </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.created_at | date:'fullDate' }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef class="action">
+          <mat-icon>more_horiz</mat-icon>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="action">
+          <button *ngIf="element.name != ''" mat-icon-button color="primary" [matTooltip]="'general.edit' |translate|titlecase" matTooltipPosition="right"
+            (click)="runDialog(element)">
+            <mat-icon>mode_edit</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" *ngIf="dataSource.data.length > 0">
+    </mat-paginator>
+  </mat-card>
+
+  <mat-card>
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="subtitle">{{ 'general.statistics'|translate|uppercase }}</h4>
+      </div>
+      <div class="charts col-md-6">
+        <div class="charts-wrapper">
+          <!-- <ngx-charts-pie-chart [scheme]="colorScheme" [results]="charts_age" [legend]="showLegend" [explodeSlices]="explodeSlices"
+            [labels]="showLabels" [doughnut]="doughnut" [gradient]="gradient" (select)="onSelect($event)">
+          </ngx-charts-pie-chart> -->
+          <ngx-charts-bar-vertical [scheme]="colorScheme" [results]="charts_age" [legend]="showLegend" [xAxis]="showXAxis" [yAxis]="showYAxis"
+            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [gradient]="gradient" >
+          </ngx-charts-bar-vertical>
+        </div>
+      </div>
+      <div class="charts col-md-6">
+        <div class="charts-wrapper">
+          <ngx-charts-bar-vertical 
+          [scheme]="colorScheme" 
+          [results]="charts_gender" 
+          [legend]="showLegend" 
+          [xAxis]="showXAxis" [yAxis]="showYAxis"
+            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [gradient]="gradient" >
+          </ngx-charts-bar-vertical>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+</div>

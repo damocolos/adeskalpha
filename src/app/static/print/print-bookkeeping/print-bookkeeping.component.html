@@ -1,0 +1,56 @@
+<div class="no-print option">
+  <mat-card class="print-option-tab">
+    <button color="accent" mat-raised-button mat-fab (click)="onBack()">
+        <mat-icon>arrow_backward</mat-icon>
+    </button>
+    <!-- <span>{{ 'general.print'|translate|uppercase }}</span> -->
+    <button color="accent" mat-raised-button mat-fab (click)="onPrint()">
+        <mat-icon>print</mat-icon>
+    </button>
+  </mat-card>
+</div>
+
+<mat-card>
+  <mat-table #table [dataSource]="dataSource" *ngIf="dataSource.data.length > 0" matSort>
+
+    <ng-container matColumnDef="nik">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.nik' |translate|uppercase }} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.nik}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.name' |translate|titlecase }} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="deposit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.deposit' |translate|titlecase }} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.deposit |currency:'IDR'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="deposit_result">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.deposit_result' |translate|titlecase }} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.deposit_result |currency:'IDR'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="credit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.credit' |translate|titlecase }} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.credit |currency:'IDR'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="credit_result">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.credit_result' |translate|titlecase }} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.credit_result |currency:'IDR'}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="total_shu">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'general.total' |translate|titlecase }} </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.total_shu |currency:'IDR'}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <mat-paginator class="no-print" #paginator [pageSize]="100" [pageSizeOptions]="[10, 20, 100, 200]" *ngIf="dataSource.data.length > 0">
+  </mat-paginator>
+</mat-card>

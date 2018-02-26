@@ -1,0 +1,30 @@
+<div class="fluid-container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <mat-card>
+                <h1>Login</h1>
+                <form novalidate (ngSubmit)="fakeLogin()" [formGroup]="loginForm" class="form-login-container">
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Email" formControlName="email">
+                        <!-- error -->
+                        <mat-error *ngIf="loginForm.get('email').hasError('email') && !loginForm.get('email').hasError('required') && ( loginForm.get('email').touched || loginForm.get('email').dirty )">
+                            Please enter a valid email address
+                        </mat-error>
+                        <mat-error *ngIf="loginForm.get('email').hasError('required') && ( loginForm.get('email').touched || loginForm.get('email').dirty )">
+                            Please fill it
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <input matInput type="password" placeholder="Password" formControlName="password">
+                        <!-- error -->
+                        <mat-error *ngIf="loginForm.get('password').hasError('required') && ( loginForm.get('password').touched || loginForm.get('password').dirty )">
+                            Please fill it
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
+                    <!-- <button mat-button color="primary">Forgot Password</button> -->
+                </form>
+            </mat-card>
+        </div>
+    </div>
+</div>

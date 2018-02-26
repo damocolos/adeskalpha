@@ -1,0 +1,5 @@
+<div>
+    <h3>{{ message | translate }}</h3>
+    <button class="pull-right" mat-raised-button color="primary" (click)="dialogRef.close(true)">Yes</button>
+    <button class="pull-right" mat-raised-button [style.margin-right]="'10px'" color="warn" (click)="dialogRef.close(false)">No</button>
+</div>

@@ -1,0 +1,188 @@
+<mat-toolbar>
+  <span>
+    <!-- <div *ngIf="mode != 'create'" class="image-wrapper text-center" [style.background-image]="getImageUrl(insuranceData?.logo)"> -->
+    <!-- <img [src]="" alt=""> -->
+    <!-- </div> -->
+    <h1 *ngIf="mode=='create'"> {{ 'form.label.create' | translate }} </h1>
+    <h1 *ngIf="mode=='edit'"> {{ 'form.label.edit' | translate }} </h1>
+  </span>
+
+  <!-- This fills the remaining space of the current row -->
+  <span class="spacer"></span>
+
+  <!-- <button mat-icon-button (click)="changeMode()" matTooltip="change mode">
+    <mat-icon color="primary" *ngIf="mode=='show'">mode_edit</mat-icon>
+    <mat-icon color="primary" *ngIf="mode=='edit'">remove_red_eye</mat-icon>
+  </button> -->
+</mat-toolbar>
+<div class="all center" *ngIf="insuranceData&&mode=='show'">
+  <div class="full-info">
+    <p class="text-center">{{ insuranceData?.name }}</p>
+    <p class="text-center">{{ insuranceData?.email }}</p>
+    <p class="text-center">{{ insuranceData?.address }}</p>
+    <p class="text-center">{{ insuranceData?.region }}</p>
+  </div>
+</div>
+<div class="form" *ngIf="insuranceData && ( mode=='edit' || mode=='create' )">
+  <div class="row">
+    <div class="col-md-8">
+      <!-- <h2>{{ 'form.form' | translate }}</h2> -->
+      <form novalidate [formGroup]="insuranceForm" class="form-login-container">
+
+        <!-- logo field -->
+        <!-- <mat-form-field class="full-width">
+      <input matInput type="file" placeholder="Logo">
+        </mat-form-field> -->
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <!-- name field -->
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="'general.name' | translate" formControlName="name">
+              <!-- error -->
+              <mat-error *ngIf="insuranceForm.get('name').hasError('required') && ( insuranceForm.get('name').touched || insuranceForm.get('name').dirty )">
+                {{ 'form.message.fill_it' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <!-- address field -->
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="'general.address' | translate" formControlName="address">
+              <!-- error -->
+              <mat-error *ngIf="insuranceForm.get('address').hasError('required') && ( insuranceForm.get('address').touched || insuranceForm.get('address').dirty )">
+                {{ 'general.message.fill_it' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+          </div>
+
+          <div class="col-md-6">
+
+            <!-- email field -->
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="'general.email' | translate" formControlName="email">
+              <!-- error -->
+              <mat-error *ngIf="insuranceForm.get('email').hasError('email') && !insuranceForm.get('email').hasError('required') && ( insuranceForm.get('email').touched || insuranceForm.get('email').dirty )">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="insuranceForm.get('email').hasError('required') && ( insuranceForm.get('email').touched || insuranceForm.get('email').dirty )">
+                {{ 'form.message.fill_it' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <!-- phone field -->
+            <mat-form-field class="full-width">
+              <span matPrefix>+62 &nbsp;</span>
+              <input matInput [placeholder]="'general.phone' | translate" type="tel" formControlName="phone">
+              <!-- error -->
+              <mat-error *ngIf="insuranceForm.get('phone').hasError('required') && ( insuranceForm.get('phone').touched || insuranceForm.get('phone').dirty )">
+                {{ 'form.message.fill_it' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+
+          </div>
+
+          <div class="col-md-12">
+
+            <!-- detail field -->
+            <mat-form-field class="full-width">
+              <textarea matInput [placeholder]="'general.detail' | translate" formControlName="detail"></textarea>
+              <!-- error -->
+              <mat-error *ngIf="insuranceForm.get('detail').hasError('required') && ( insuranceForm.get('detail').touched || insuranceForm.get('detail').dirty )">
+                {{ 'form.message.fill_it' | translate }}
+              </mat-error>
+            </mat-form-field>
+
+            <!-- username field -->
+            <mat-form-field class="full-width" *ngIf="mode=='create'">
+              <input matInput [placeholder]="'general.username' | translate" type="text" formControlName="username">
+              <!-- error -->
+              <mat-error *ngIf="insuranceForm.get('username').hasError('required') && ( insuranceForm.get('username').touched || insuranceForm.get('username').dirty ) && mode == 'create'">
+                Please fill it
+              </mat-error>
+            </mat-form-field>
+
+
+            <!-- logo field -->
+            <!-- <mat-form-field class="file-field">
+              <anms-file-input formControlName="logoFile" [placeholder]="'general.logo' | translate"></anms-file-input>
+              <mat-icon matSuffix>folder</mat-icon> -->
+            <!-- error -->
+            <!-- <mat-error *ngIf="insuranceForm.get('logo').hasError('required') && ( insuranceForm.get('logo').touched || insuranceForm.get('logo').dirty )">
+                {{ 'form.message.fill_it' | translate }}
+              </mat-error>
+            </mat-form-field>
+            <div class="button-w-file"> -->
+            <!-- <button mat-button mat-fab color="primary" matTooltip="upload" matTooltipPosition="right" (click)="uploadFile()">
+                <mat-icon>file_upload</mat-icon>
+              </button> -->
+            <!-- <button mat-button mat-fab color="primary" matTooltip="upload" matTooltipPosition="right" (click)="filePicker()">
+                <mat-icon>file_upload</mat-icon>
+              </button> -->
+            <!-- </div> -->
+          </div>
+
+          <div class="col-md-6">
+            <button mat-raised-button class="full-width button-loc" color="primary" matTooltip="set image" matTooltipPosition="right"
+              (click)="filePicker()">
+              <!-- <mat-icon>add_location</mat-icon> -->
+              <mat-icon>insert_photo</mat-icon> {{ 'general.image_picker' | translate }}
+            </button>
+          </div>
+          
+          <div class="col-md-6">
+            <!-- loc picker -->
+            <button mat-raised-button class="full-width button-loc" color="primary" matTooltip="set location" matTooltipPosition="right"
+              (click)="openLocPicker()">
+              <!-- <mat-icon>add_location</mat-icon> -->
+              <mat-icon>add_location</mat-icon> {{ 'general.location_picker' | translate }}
+            </button>
+          </div>
+
+          <!-- <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="'general.latitude' | translate" formControlName="lat">
+              <mat-error *ngIf="insuranceForm.get('lat').hasError('required') && ( insuranceForm.get('lat').touched || insuranceForm.get('lat').dirty )">
+                {{ 'form.message.fill_it' | translate }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field class="full-width">
+              <input matInput [placeholder]="'general.longitude' | translate" formControlName="lng">
+              <mat-error *ngIf="insuranceForm.get('lng').hasError('required') && ( insuranceForm.get('lng').touched || insuranceForm.get('lng').dirty )">
+                {{ 'form.message.fill_it' | translate }}
+              </mat-error>
+            </mat-form-field>
+          </div> -->
+
+        </div>
+        <!-- end of row -->
+
+      </form>
+      <button mat-button color="warn" (click)="delete()" *ngIf="mode=='edit'">{{ 'action.delete' | translate }}</button>
+      <button class="pull-right" mat-raised-button color="primary" (click)="save()" [disabled]="!insuranceForm.valid">{{ 'action.save' | translate }}</button>
+    </div>
+    <div class="col-md-4 preview">
+      <!-- <h2>Preview</h2> -->
+      <div class="image-w" *ngIf="this.insuranceForm.get('logo').value != ''" [style.background-image]="getImageUrl(this.insuranceForm.get('logo').value)"></div>
+      <!-- <img *ngIf="this.insuranceForm.get('logo').value != ''" class="logo" [src]="getImage(this.insuranceForm.get('logo').value)" alt="logo"> -->
+      <label>Name :</label>
+      <p>{{ this.insuranceForm.get('name').value }}</p>
+      <label>Email :</label>
+      <p>{{ this.insuranceForm.get('email').value }}</p>
+      <label>Address :</label>
+      <p>{{ this.insuranceForm.get('address').value }}</p>
+      <label>Phone :</label>
+      <p>{{ this.insuranceForm.get('phone').value }}</p>
+      <label>Detail :</label>
+      <p>{{ this.insuranceForm.get('detail').value }}</p>
+      <label>Location :</label>
+      <p>{{ this.insuranceForm.get('lat').value }}, {{ this.insuranceForm.get('lng').value }}</p>
+    </div>
+  </div>
+
+</div>

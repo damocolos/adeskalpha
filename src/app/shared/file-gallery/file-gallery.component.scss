@@ -1,0 +1,140 @@
+.image-wrapper {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  background-color: black;
+  background-image: url(../../../assets/transparant_tile.jpg);
+  background-repeat: repeat;
+  cursor: pointer;
+  transition: all .2s ease;
+  &.selected {
+    padding: 10px !important; // background-color: #17b2b9 !important;
+    .backdrop {
+      opacity: 1;
+    }
+  }
+  .backdrop {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .3);
+    transition: all .5s ease;
+    mat-icon {
+      position: absolute;
+      text-align: center;
+      line-height: 100px;
+      top: 50%;
+      left: 50%;
+      margin-top: -50px;
+      margin-left: -50px;
+      width: 100px;
+      height: 100px;
+      font-size: 3em;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 100px;
+    }
+  }
+  .image-place {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat; // background-color: black;
+  }
+} // .example-container {
+//   position: absolute;
+//   top: 60px;
+//   bottom: 60px;
+//   left: 0;
+//   right: 0;
+// }
+.info-selected {
+  position: absolute;
+  top: 0;
+  padding-top: 10px;
+  width: 100%; // margin-bottom: 0px;
+  .preview-image-wrapper {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 4px;
+    img {
+      width: 50%;
+    }
+  }
+  * {
+    width: 100%;
+    word-wrap: break-word;
+  }
+  label {
+    font-size: .6em;
+    color: grey;
+    margin: 0px;
+    margin-bottom: -1px
+  }
+  p {
+    font-size: .7em;
+    color: rgb(34, 34, 34);
+    margin: 0px;
+    a {
+      color: blue;
+    }
+  }
+}
+
+.example-sidenav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  background: rgb(255, 255, 255);
+}
+
+.upload-section {
+  padding: 10px 20px;
+  .file-field {
+    width: 80%;
+    float: left;
+  }
+  .button-w-file {
+    width: 20%;
+    float: left;
+    text-align: center;
+  }
+}
+
+form {
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.gallery-panel {
+  height: 100vh;
+  margin-bottom: -64px;
+  padding-bottom: 64px;
+  overflow-y: scroll;
+  &.dialog {
+    height: 550px !important;
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+  }
+  &::-webkit-scrollbar {
+    height: 4px;
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.26);
+  }
+}
+
+.info-panel {}
+
+.row {
+  position: relative;
+}

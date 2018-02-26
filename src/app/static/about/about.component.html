@@ -1,0 +1,37 @@
+<div class="background">
+  <div class="gradient">
+    <div class="container">
+      <h1>Angular ngRx Material Starter</h1>
+      <div class="actions">
+        <a [ngClass]="animateOnRouteEnter"
+           mat-raised-button color="primary" routerLink="../features">
+          Check Features
+        </a>
+        <a mat-raised-button color="accent" routerLink="../examples"
+           [ngClass]="animateOnRouteEnter">
+          Check Examples
+        </a>
+        <a mat-raised-button routerLink="../settings"
+           [ngClass]="animateOnRouteEnter">
+          Change Theme
+        </a>
+        <span [ngClass]="animateOnRouteEnter">or</span>
+        <a mat-raised-button
+           [ngClass]="animateOnRouteEnter"
+           target="_blank"
+           href="https://medium.com/@tomastrajan/the-complete-guide-to-angular-material-themes-4d165a9d24d1">
+          <i class="fa fa-medium"></i> Check Blog Post
+        </a>
+      </div>
+      <div class="get-started" [ngClass]="animateOnRouteEnter">
+        <h2>Getting started</h2>
+        <code>git clone
+          https://github.com/tomastrajan/angular-ngrx-material-starter.git
+          new-project</code><br>
+        <code>cd new-project</code><br>
+        <code>npm install</code><br>
+        <code>npm start</code>
+      </div>
+    </div>
+  </div>
+</div>

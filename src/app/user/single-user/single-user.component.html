@@ -1,0 +1,64 @@
+<mat-toolbar *ngIf="userData">
+  <span>
+    <h1 *ngIf="mode=='create'"> {{ 'form.label.create' | translate }} </h1>
+    <h1 *ngIf="mode=='edit'"> {{ 'form.label.edit' | translate }} </h1>
+  </span>
+
+  <!-- This fills the remaining space of the current row -->
+  <span class="spacer"></span>
+
+  <!-- <button mat-icon-button (click)="changeMode()" matTooltip="change mode">
+    <mat-icon color="primary" *ngIf="mode=='show'">mode_edit</mat-icon>
+    <mat-icon color="primary" *ngIf="mode=='edit'">remove_red_eye</mat-icon>
+  </button> -->
+</mat-toolbar>
+<div class="form" *ngIf="userData">
+  <form novalidate [formGroup]="userForm" class="form-login-container">
+
+    <!-- username field -->
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Username" formControlName="username">
+      <!-- error -->
+      <mat-error *ngIf="userForm.get('username').hasError('required') && ( userForm.get('username').touched || userForm.get('username').dirty )">
+        Please fill it
+      </mat-error>
+    </mat-form-field>
+
+    <!-- email field -->
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Email" formControlName="email">
+      <!-- error -->
+      <mat-error *ngIf="userForm.get('email').hasError('email') && !userForm.get('email').hasError('required') && ( userForm.get('email').touched || userForm.get('email').dirty )">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="userForm.get('email').hasError('required') && ( userForm.get('email').touched || userForm.get('email').dirty )">
+        Please fill it
+      </mat-error>
+    </mat-form-field>
+
+    <!-- password field -->
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Password" type="password" formControlName="password">
+      <!-- error -->
+      <mat-error *ngIf="userForm.get('password').hasError('required') && ( userForm.get('password').touched || userForm.get('password').dirty ) && mode == 'create'">
+        Please fill it
+      </mat-error>
+    </mat-form-field>
+
+    <!-- role field -->
+    <mat-form-field class="full-width">
+      <mat-select placeholder="Role" formControlName="role">
+        <mat-option *ngFor="let level of levelOptions" [value]="level.value">
+          {{level.viewValue}}
+        </mat-option>
+      </mat-select>
+      <!-- error -->
+      <mat-error *ngIf="userForm.get('role').hasError('required') && ( userForm.get('role').touched || userForm.get('role').dirty ) && mode == 'create'">
+        Please fill it
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+  <button mat-button color="warn" (click)="delete()" *ngIf="mode=='edit'" matTooltip="delete">Delete</button>
+  <button class="pull-right" mat-raised-button color="primary" matTooltip="save" (click)="save()" [disabled]="!userForm.valid">Save</button>
+</div>

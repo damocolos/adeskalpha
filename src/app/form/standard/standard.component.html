@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Form</h1>
+      <mat-card>
+
+        <div class="example-container">
+          <form [formGroup]="formGroup">
+            <mat-form-field>
+              <input matInput placeholder="Message" formControlName="title">
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput placeholder="Action" formControlName="image">
+            </mat-form-field>
+
+            <!-- logo field beta 2 -->
+            <mat-form-field class="full-width">
+              <anms-file-input formControlName="imageFile" placeholder="Logo"></anms-file-input>
+              <mat-icon matSuffix>folder</mat-icon>
+            </mat-form-field>
+            <!-- 
+                    <mat-form-field>
+                        <textarea matInput placeholder="Textarea"></textarea>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-select placeholder="Select">
+                            <mat-option value="option">Option</mat-option>
+                        </mat-select>
+                    </mat-form-field> -->
+          </form>
+        </div>
+        <!-- <button mat-raised-button color="primary" (click)="onSnackBar(a.value, b.value)">Click me!</button> -->
+        <button (click)="submit()" mat-raised-button color="primary">SUBMIT</button>
+      </mat-card>
+    </div>
+  </div>
+</div>

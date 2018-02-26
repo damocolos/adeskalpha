@@ -1,0 +1,153 @@
+<!-- <mat-sidenav-container>
+
+    <mat-sidenav #sidenav mode="side" opened="true">
+        <div class="branding">
+            <img [src]="logo" />
+            <span>Admin Panel</span>
+        </div>
+        <mat-nav-list>
+            <a mat-list-item *ngFor="let item of navigationSideMenu" [routerLink]="[item.link]" routerLinkActive="active" (click)="sidenav.close()">{{item.label}}</a>
+        </mat-nav-list>
+    </mat-sidenav> -->
+
+
+<!-- <mat-sidenav #sidenavsm mode="push" position="end" opened="true" class="hidden-sm-up">
+            <div class="branding">
+                <img [src]="logo" />
+                <span>Admin Panel</span>
+            </div>
+            <mat-nav-list>
+                <a mat-list-item *ngFor="let item of navigationSideMenu" (click)="sidenavsm.close()" [routerLink]="[item.link]" routerLinkActive="active">{{item.label}}</a>
+            </mat-nav-list>
+        </mat-sidenav> -->
+
+<!-- <mat-sidenav-content>Main content</mat-sidenav-content> -->
+<div class="wrapper">
+
+  <mat-toolbar color="primary">
+    <button mat-icon-button (click)="sidenav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <span routerLink="" class="branding spacer hidden-md-up text-center">
+      <img class="logo" [src]="logo" />
+      <!-- <h1>{{ title | titlecase }}</h1> -->
+      <h4>{{ appName }}</h4>
+    </span>
+    <span routerLink="" class="branding hidden-sm-down">
+      <img class="logo" [src]="logo" />
+      <!-- <h1>{{ title | titlecase }}</h1> -->
+      <h4>{{ appName }}</h4>
+    </span>
+
+    <span class="hidden-sm-down spacer top-navigation">
+      <button mat-button class="nav-button" *ngFor="let item of navigation" [routerLink]="[item.link]" routerLinkActive="active">
+        {{ item.label |translate|titlecase }}
+      </button>
+    </span>
+
+    <!-- <span class="hidden-sm-down"> -->
+    <!-- </span> -->
+
+    <button mat-button class="sign-in-button" *ngIf="!isAuthenticated" (click)="onLoginClick()">
+      Sign in
+    </button>
+
+    <button *ngIf="isAuthenticated" mat-icon-button [matMenuTriggerFor]="toolbarUserMenu">
+      <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #toolbarUserMenu="matMenu">
+      <button mat-menu-item (click)="onLogoutClick()">
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+
+    <!-- <button mat-icon-button routerLink="settings" class="hidden-sm-down">
+      <mat-icon>settings</mat-icon>
+    </button> -->
+
+    <!-- <a matTooltip="Project Github Repository" matdTooltipPosition="before" mat-icon-button class="link" href="https://github.com/tomastrajan/angular-ngrx-material-starter"
+      target="_blank">
+      <i class="fa fa-github fa-2x"></i>
+    </a> -->
+
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" opened="true" class="hidden-sm-down">
+      <!-- <div class="branding">
+        <img [src]="logo" />
+        <span>Admin Panel</span>
+      </div> -->
+      <h3 class="divider">{{ 'menu.menu' |translate }}</h3>
+      <mat-nav-list>
+        <a mat-list-item *ngFor="let item of navigationSideMenu" [routerLink]="[item.link]" routerLinkActive="active">
+          <mat-icon>{{item.icon}}</mat-icon> &nbsp; {{item.label |translate|titlecase}}</a>
+      </mat-nav-list>
+      <div class="row">
+        <div class="footer">
+          <div class="col-12 signature">
+            &#169; {{year}}
+            <br>
+            <a matTooltip="Show changelog" matTooltipPosition="before" href="https://github.com/tomastrajan/angular-ngrx-material-starter/blob/master/CHANGELOG.md">
+              <i class="fa fa-rocket"></i> {{version}}
+              <span *ngIf="!isProd">[{{envName}}]</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <div class="content" [@routerTransition]="o.isActivated && o.activatedRoute.routeConfig.path">
+        <router-outlet #o="outlet"></router-outlet>
+      </div>
+    </mat-sidenav-content>
+
+  </mat-sidenav-container>
+
+  <!-- <div class="footer"> -->
+  <!-- <div class="row">
+      <div class="col-sm-12 links">
+        <a href="https://www.github.com/tomastrajan" target="_blank">
+          <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+          <span>Github</span>
+        </a>
+        <a href="https://www.medium.com/@tomastrajan" target="_blank">
+          <i class="fa fa-medium fa-2x" aria-hidden="true"></i>
+          <span>Medium</span>
+        </a>
+        <a href="https://www.twitter.com/tomastrajan" target="_blank">
+          <i class="fa fa-twitter fa-2x" aria-hidden="true"></i>
+          <span>Twitter</span>
+        </a>
+        <a href="https://www.youtube.com/channel/UC7XgRHIVoqnh3U5Vmly9ofQ" target="_blank">
+          <i class="fa fa-youtube fa-2x" aria-hidden="true"></i>
+          <span>Youtube</span>
+        </a>
+        <a href="https://www.instagram.com/tomastrajan" target="_blank">
+          <i class="fa fa-instagram fa-2x" aria-hidden="true"></i>
+          <span>Instagram</span>
+        </a>
+        <a href="https://www.slides.com/tomastrajan" target="_blank">
+          <i class="fa fa-desktop fa-2x" aria-hidden="true"></i>
+          <span>Slides</span>
+        </a>
+      </div>
+    </div> -->
+  <!-- footer -->
+  <!-- <div class="row">
+      <div class="col-12 signature">
+        &#169; {{year}} - Archipelago Digital Studio
+        <a matTooltip="Show changelog" matTooltipPosition="before" href="https://github.com/tomastrajan/angular-ngrx-material-starter/blob/master/CHANGELOG.md">
+          <i class="fa fa-rocket"></i> {{version}}
+          <span *ngIf="!isProd">[{{envName}}]</span>
+        </a>
+      </div>
+    </div> -->
+  <!-- </div> -->
+
+</div>
+
+<!-- </mat-sidenav-container> -->

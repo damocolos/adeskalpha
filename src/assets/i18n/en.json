@@ -1,0 +1,86 @@
+{
+  "name": "koperasi",
+  "general": {
+    "upload": "upload",
+    "save": "save",
+    "delete": "selete",
+    "nik": "nik",
+    "edit": "Edit",
+    "name": "name",
+    "date": "date",
+    "username": "username",
+    "email": "email",
+    "address": "address",
+    "city": "city",
+    "phone": "phone",
+    "detail": "detail",
+    "logo": "logo",
+    "longitude": "longitude",
+    "latitude": "latitude",
+    "location_picker": "set location",
+    "image_picker": "set image",
+    "set_location": "set location",
+    "file": "file",
+    "search": "search",
+    "type": "type",
+    "amount": "amount",
+    "description": "description",
+    "data": "data",
+    "statistics": "statistics",
+    "profil": "profil",
+    "gender": "gender",
+    "birth_date": "birth date",
+    "last_salary": "last salary",
+    "salary_date": "salary date",
+    "out_date": "out date",
+    "interest": "interest",
+    "time_periods": "time periods",
+    "paid": "paid",
+    "month": "month",
+    "monthly": "monthly",
+    "done": "done",
+    "progress": "progress",
+    "currency_symbol": "IDR",
+    "from": "from",
+    "to": "to",
+    "in": "in",
+    "out": "out",
+    "mark": "mark",
+    "shu": "shu",
+    "deposit": "deposit",
+    "credit": "credit",
+    "deposit_result": "deposit shu",
+    "credit_result": "credit shu",
+    "total": "total",
+    "print": "print",
+    "other": "other"
+  },
+  "message": {
+      "delete" :{
+          "member" : "delete this member ?",
+          "deposit": "delete this deposit ?",
+          "credit": "delete this credit ?"
+      }
+  },
+  "action": {
+    "delete": "delete",
+    "save": "save"
+  },
+  "form": {
+    "form": "Form",
+    "message": {
+      "fill_it": "Please fill it",
+      "enter_valid": "Please enter a valid"
+    }
+  },
+  "insurance": {
+    "insurance": "Insurance"
+  },
+  "menu": {
+      "menu": "menu",
+      "member": "member",
+      "deposit": "deposit",
+      "credit": "credit",
+      "bookkeeping": "book keeping"
+  }
+}
