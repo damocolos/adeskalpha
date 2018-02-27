@@ -18,10 +18,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { LoaderService } from '@app/loader.service';
 import { selectorUsers, actionInitUser } from '@app/core/user/user.reducer';
 import { UserDataService } from '@app/core/user/user-data.service';
-import { selectorMedias, actionInitMedia } from '@app/media/media.reducer';
-import { MediaDataService } from '@app/media/media-data.service';
-import { actionInitInsurance } from '@app/insurance/insurance.reducer';
-import { InsuranceDataService } from '@app/insurance/insurance-data.service';
 import { TreadService } from '@app/core/tread/tread.service';
 
 @Component({

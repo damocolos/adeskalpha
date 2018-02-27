@@ -61,27 +61,13 @@ const routes: Routes = [
 
 
             {
-                path: 'insurance',
-                loadChildren: 'app/insurance/insurance.module#InsuranceModule',
-                data: {
-                    title: 'Insurance'
-                }
-            },
-            {
-                path: 'media',
-                loadChildren: 'app/media/media.module#MediaModule',
-                data: {
-                    title: 'Media'
-                }
-            },
-            {
                 path: 'user',
                 loadChildren: 'app/user/user.module#UserModule'
             },
-            // {
-            //     path: '**',
-            //     redirectTo: 'member'
-            // }
+            {
+                path: '**',
+                redirectTo: 'member'
+            }
         ]
     }
 ];

@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '@env/environment';
 import { LoaderService } from '@app/loader.service';
-import { MediaDataService } from '@app/media/media-data.service';
-import { InsuranceDataService } from '@app/insurance/insurance-data.service';
 import { Store } from '@ngrx/store';
-import { actionInitMedia, selectorMedias } from '@app/media/media.reducer';
-import { actionInitInsurance, selectorInsurances } from '@app/insurance/insurance.reducer';
 import { selectorMembers } from '@app/member/member.reducer';
 import { selectorDeposits } from '@app/deposit/deposit.reducer';
 import { selectorCredits } from '@app/credit/credit.reducer';
@@ -18,14 +14,10 @@ export class TreadService {
 
     constructor(
         private loader: LoaderService,
-        private store: Store<any>,
-        private insuranceService: InsuranceDataService,
-        private mediaService: MediaDataService,
+        private store: Store<any>
     ) {
         // this.loader.display(true);
 
-        this.store.select(selectorMedias);
-        this.store.select(selectorInsurances);
         this.store.select(selectorMembers);
         this.store.select(selectorDeposits);
         this.store.select(selectorCredits);

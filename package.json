@@ -13,7 +13,6 @@
     "e2e": "ng e2e",
     "watch": "ng test --browsers ChromeHeadless --reporters spec",
     "build:prod": "ng build --target production --build-optimizer --vendor-chunk --stats-json",
-    "build:staging": "ng build --env=staging",
     "build:travisci": "ng build --target production --build-optimizer --vendor-chunk --deploy-url /angular-ngrx-material-starter/ --base-href /angular-ngrx-material-starter",
     "clean": "rimraf dist",
     "server": "cd dist && nodemon server.js",

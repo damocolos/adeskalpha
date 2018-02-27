@@ -37,9 +37,6 @@ import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { FileInputComponent } from './file-input/file-input.component';
 
 import { TranslateModule } from '@ngx-translate/core';
-import { FileGalleryComponent } from './file-gallery/file-gallery.component';
-import { FileGalleryDialogComponent } from './file-gallery-dialog/file-gallery-dialog.component';
-import { FileGalleryDataService } from '@app/shared/file-gallery/file-gallery-data.service';
 import { ShowMemberComponent } from './show-member/show-member.component';
 import { DialogService } from '@app/shared/services/dialog.service';
 import { MemberInputComponent } from './member-input/member-input.component';
@@ -80,11 +77,17 @@ import { MemberInputComponent } from './member-input/member-input.component';
     ],
     entryComponents: [
         AlertDialogComponent,
-        FileGalleryDialogComponent,
         ShowMemberComponent,
         MemberInputComponent,
     ],
-    declarations: [BigInputComponent, BigInputActionComponent, AlertDialogComponent, FileInputComponent, FileGalleryComponent, FileGalleryDialogComponent, ShowMemberComponent, MemberInputComponent],
+    declarations: [
+        BigInputComponent,
+        BigInputActionComponent,
+        AlertDialogComponent,
+        FileInputComponent,
+        ShowMemberComponent,
+        MemberInputComponent
+    ],
     exports: [
         CommonModule,
         ReactiveFormsModule, FormsModule,
@@ -118,14 +121,11 @@ import { MemberInputComponent } from './member-input/member-input.component';
         BigInputComponent,
         BigInputActionComponent,
         FileInputComponent,
-        FileGalleryComponent,
-        FileGalleryDialogComponent,
         MemberInputComponent,
 
         TranslateModule,
     ],
     providers: [
-        FileGalleryDataService,
         DialogService
     ]
 })

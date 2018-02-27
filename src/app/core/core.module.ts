@@ -12,10 +12,6 @@ import { HttpInterceptService } from './http-intercept/http-intercept.service';
 import { AuthGuard } from '@app/core/auth-guard/auth.guard';
 import { userReducer } from '@app/core/user/user.reducer';
 import { UserDataService } from '@app/core/user/user-data.service';
-import { mediaReducer } from '@app/media/media.reducer';
-import { MediaDataService } from '@app/media/media-data.service';
-import { InsuranceDataService } from '@app/insurance/insurance-data.service';
-import { insuranceReducer } from '@app/insurance/insurance.reducer';
 import { TreadService } from '@app/core/tread/tread.service';
 import { memberReducer } from '@app/member/member.reducer';
 import { depositReducer } from '@app/deposit/deposit.reducer';
@@ -37,9 +33,7 @@ export function getInitialState() {
         StoreModule.forRoot(
             {
                 auth: authReducer,
-                insurance: insuranceReducer,
                 user: userReducer,
-                media: mediaReducer,
                 member: memberReducer,
                 deposit: depositReducer,
                 credit: creditReducer,
@@ -60,8 +54,6 @@ export function getInitialState() {
         },
         AuthGuard,
         UserDataService,
-        MediaDataService,
-        InsuranceDataService,
 
         TreadService,
     ]
@@ -82,8 +74,6 @@ export class CoreModule {
             ngModule: CoreModule,
             providers: [
                 UserDataService,
-                MediaDataService,
-                InsuranceDataService,
                 TreadService,
             ]
         }
